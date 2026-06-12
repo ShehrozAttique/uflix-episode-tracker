@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "UFlix Season Tracker",
+  "version": "1.0",
+  "description": "Tracks the seasons and episodes you are watching on uflix.to",
+  "permissions": ["storage", "webNavigation"],
+  "host_permissions": ["*://uflix.to/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://uflix.to/episode/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "View Tracked Shows"
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  }
+}

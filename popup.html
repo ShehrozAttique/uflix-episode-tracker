@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      :root {
+        --bg-main: #0a0a0c;
+        --bg-surface: #141417;
+        --bg-surface-hover: #1c1c21;
+        --border-color: #242429;
+        --text-main: #f4f4f6;
+        --text-muted: #8a8a93;
+        --text-link: #a3a3ec;
+        --text-link-hover: #c5c5ff;
+        --danger: #e5484d;
+      }
+
+      body {
+        width: 360px;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        padding: 16px;
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        margin: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Top Navigation Area */
+      .brand-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+
+      .brand-link {
+        display: block;
+        transition: opacity 0.2s ease;
+      }
+
+      .brand-link:hover {
+        opacity: 0.85;
+      }
+
+      .brand-logo {
+        max-width: 140px;
+        height: auto;
+        display: block;
+      }
+
+      /* Header Controls */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+      }
+
+      h2 {
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0;
+        color: var(--text-muted);
+      }
+
+      .clear-btn {
+        background: transparent;
+        color: var(--text-muted);
+        border: 1px solid var(--border-color);
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 11px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      .clear-btn:hover {
+        color: var(--text-main);
+        background-color: var(--bg-surface);
+        border-color: var(--text-muted);
+      }
+
+      /* Show Cards Layout */
+      #tracker-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .show-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        transition: border-color 0.2s ease;
+      }
+
+      .show-card:hover {
+        border-color: #323239;
+      }
+
+      /* Interactive Header Block */
+      .show-clickable-header {
+        display: flex;
+        align-items: center;
+        padding: 12px;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      /* Image Link Wrapper & Hover */
+      .show-link-img {
+        display: flex;
+        flex-shrink: 0;
+        margin-right: 12px;
+        transition: opacity 0.2s ease;
+      }
+
+      .show-link-img:hover {
+        opacity: 0.7;
+      }
+
+      /* Fixed Size Poster */
+      .show-link-img img {
+        width: 40px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 4px;
+        background: #1a1a1e;
+        border: 1px solid var(--border-color);
+      }
+
+      .show-title-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+      }
+
+      .show-title {
+        font-weight: 600;
+        font-size: 14px;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--text-main);
+      }
+
+      /* Chevron Icon Indicator */
+      .chevron-icon {
+        color: var(--text-muted);
+        transition: transform 0.2s ease;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .chevron-icon svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* Active Accordion Adjustments */
+      .show-card.expanded .chevron-icon {
+        transform: rotate(180deg);
+      }
+
+      /* Smooth Collapsible Drawer */
+      .show-drawer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        background-color: #0f0f12;
+        border-top: 0 solid var(--border-color);
+      }
+
+      .show-card.expanded .show-drawer {
+        max-height: 120px;
+        border-top-width: 1px;
+      }
+
+      .drawer-content {
+        padding: 12px 12px 12px 64px;
+      }
+
+      /* Action Buttons */
+      .play-next-btn {
+        background-color: rgba(163, 163, 236, 0.1);
+        color: var(--text-link);
+        text-decoration: none;
+        border: 1px solid rgba(163, 163, 236, 0.3);
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        transition: all 0.2s ease;
+        margin-right: 4px;
+      }
+
+      .play-next-btn:hover {
+        background-color: var(--text-link);
+        color: var(--bg-main);
+      }
+
+      .play-next-btn svg {
+        width: 12px;
+        height: 12px;
+        fill: currentColor;
+        margin-right: 4px;
+      }
+
+      .delete-show {
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 6px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+      }
+
+      .delete-show:hover {
+        color: var(--danger);
+        background-color: rgba(229, 72, 77, 0.1);
+      }
+
+      .delete-show svg {
+        width: 14px;
+        height: 14px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* Episode Strings */
+      .episode-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        font-size: 12px;
+        max-height: 90px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .episode-list li a {
+        color: var(--text-link);
+        text-decoration: none;
+        display: inline-block;
+        transition: color 0.15s ease;
+      }
+
+      .episode-list li a:hover {
+        color: var(--text-link-hover);
+        text-decoration: underline;
+      }
+
+      .empty-state {
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 12px;
+        padding: 24px 0;
+      }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2c2c35;
+        border-radius: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="brand-container">
+      <a href="https://uflix.to/" target="_blank" class="brand-link">
+        <img
+          src="icon-full.png"
+          alt="UFlix Logo"
+          class="brand-logo"
+          onerror="this.style.display = 'none'"
+        />
+      </a>
+    </div>
+
+    <div class="header">
+      <h2>Tracked History</h2>
+      <button id="clear-all" class="clear-btn">Clear All</button>
+    </div>
+
+    <div id="tracker-list">Loading...</div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -3,7 +3,6 @@
 A lightweight, custom Chrome extension designed specifically for uflix.to. Never lose your place in a series again—this extension automatically tracks your watch progress and saves it locally, keeping your current season and episode just a click away in a fast-loading popup UI.
 
 ![Uflix Tracker Screenshot](assets/screenshot.png)
-_(Replace this placeholder with a screenshot of your extension popup)_
 
 ## ✨ Features
 
